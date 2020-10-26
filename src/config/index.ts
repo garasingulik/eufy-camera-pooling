@@ -14,7 +14,7 @@ export interface Config {
 
 export const NODE_ENV = process.env.NODE_ENV || 'development'
 
-function getConfig (): Config {
+function getConfig(): Config {
   switch (NODE_ENV) {
     case 'production': {
       return production
