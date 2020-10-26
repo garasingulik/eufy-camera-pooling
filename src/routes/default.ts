@@ -28,7 +28,7 @@ export const DefaultRoutes = {
       return res.json({ active: pool.isStreamDetected() })
     })
 
-    app.get('/reset', authenticationMiddleware, (req, res) => {
+    app.post('/reset', authenticationMiddleware, (req, res) => {
       pool.reset()
       return res.json({ message: 'OK' })
     })

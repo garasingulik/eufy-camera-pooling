@@ -7,7 +7,8 @@ import staging from './staging'
 export interface Config {
   port: number,
   secret: string,
-  stream: string,
+  cameraStream: string,
+  streamHost: string,
   ffprobe: string
 }
 
