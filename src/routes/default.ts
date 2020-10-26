@@ -4,6 +4,8 @@ import * as iotsReporters from 'io-ts-reporters'
 import * as T from '../lib/types'
 import { authenticationMiddleware } from './authorization'
 
+import * as pool from '../lib/pool'
+
 export const DefaultRoutes = {
   register: (app: express.Application) => {
 
@@ -20,6 +22,15 @@ export const DefaultRoutes = {
         })
       }
       return res.json({ message: `Hello, ${data.name}!` })
+    })
+
+    app.get('/status', authenticationMiddleware, (req, res) => {
+      return res.json({ active: pool.isStreamDetected() })
+    })
+
+    app.post('/reset', authenticationMiddleware, (req, res) => {
+      pool.reset()
+      return res.json({ message: 'OK' })
     })
   }
 }
