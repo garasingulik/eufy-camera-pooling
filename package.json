@@ -1,7 +1,7 @@
 {
   "name": "eufy-camera-pooling",
   "version": "0.0.1",
-  "description": "TypeScript and Express Project Template",
+  "description": "Service to Detect RTSP Stream Readiness from Eufy Security Camera",
   "main": "build/src/server.js",
   "types": "build/src/server.d.ts",
   "files": [
