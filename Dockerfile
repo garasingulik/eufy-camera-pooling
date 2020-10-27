@@ -15,7 +15,6 @@ FROM node:12.18.4-stretch-slim
 WORKDIR /app
 
 ARG FFMPEG_VERSION=4.3.1
-
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # Instal a statically linked, recent version of ffmpeg and ffprobe

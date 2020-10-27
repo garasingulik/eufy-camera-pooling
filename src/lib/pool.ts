@@ -23,22 +23,20 @@ export const waitAndNotify = async () => {
     streamDetected = true
     console.log('Camera stream is up ...')
 
-    const streamHost = `${config.streamHost}/stream/convert`
-    console.log(`Reaching stream converter: ${streamHost} ...`)
+    if (config.streamHost) {
+      console.log(`Pushing stream url: ${config.streamHost} ...`)
 
-    const data = { url: config.cameraStream }
-    const options = {
-      headers: {
-        'Content-Type': 'application/json'
+      const data = { url: config.cameraStream }
+      const options = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }
-    }
 
-    const streamUrl = await T.wrapAxios<StreamUrl>(axios.post(streamHost, data, options))
-
-    if (T.isAxiosError(streamUrl)) {
-      console.error('Stream host is not reachable ...', streamUrl)
-    } else {
-      console.log(`Converted Stream URL: ${streamUrl.data.url}`)
+      const streamUrl = await T.wrapAxios<StreamUrl>(axios.post(config.streamHost, data, options))
+      if (T.isAxiosError(streamUrl)) {
+        console.error('Stream host is not reachable ...', streamUrl)
+      }
     }
   }
 

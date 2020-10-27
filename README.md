@@ -1,6 +1,10 @@
 # Eufy Camera Pooling
 
-This service will do long pooling and check if the RTSP stream from Eufy Security camera is ready. It was design to be use with [RTxP to HLS Realtime Stream Converter](https://github.com/garasingulik/rtxp-to-hls) so the stream will be triggered to convert when the stream from camera is up.
+This service will do long pooling and check if the RTSP stream from Eufy Security camera is ready. The service accept `STREAM_HOST` environment variable and will push the payload `{ "url": "active-stream-url" }` to the endpoint sets on that variable. For example, if we want to notify [rtxp-to-hls](https://github.com/garasingulik/rtxp-to-hls) service, set the variable value to:
+
+```
+ STREAM_HOST=http(s)://rxtp-to-hls/stream/convert
+```
 
 # Running in Development
 
@@ -14,8 +18,8 @@ Before we run the project, create one `.env` file in the root of the project and
 
 ```
 CAMERA_STREAM=<camera rtsp stream>
-STREAM_HOST=<rtxp-to-hls stream converter url>
-FFPROBE_PATH=<ffprobe path default = /usr/bin/ffprobe>
+STREAM_HOST=<callback url (optional)>
+FFPROBE_PATH=</usr/bin/ffprobe (optional)>
 ```
 
 To run this project in the development:
