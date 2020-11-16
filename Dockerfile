@@ -33,6 +33,8 @@ RUN chmod +x /usr/bin/ffmpeg && chmod +x /usr/bin/ffprobe
 
 ENV API_SECRET='' \
     CAMERA_STREAM='' \
+    API_HOST='' \
+    API_SECRET='' \
     STREAM_HOST='' \
     FFPROBE_PATH='/usr/bin/ffprobe'
 

@@ -11,33 +11,63 @@ interface StreamUrl {
   url: string
 }
 
+const notifyStream = async () => {
+  if (config.streamHost && config.streamHost !== '') {
+    console.log(`Pushing stream url: ${config.streamHost} ...`)
+
+    const data = { url: config.camera.streamUrl }
+    const options = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    const streamUrl = await T.wrapAxios<StreamUrl>(axios.post(config.streamHost, data, options))
+    if (T.isAxiosError(streamUrl)) {
+      console.error('Stream host is not reachable ...', streamUrl)
+    }
+  }
+}
+
+const notifyApi = async (isStreamUp: boolean) => {
+  if (config.apiHost && config.apiHost !== '') {
+    console.log(`Contacting API: ${config.apiHost} ...`)
+
+    const data = {
+      cameraId: config.camera.id,
+      streamUrl: config.camera.streamUrl,
+      isStreamUp
+    }
+
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${config.apiSecret}`
+      }
+    }
+
+    const streamUrl = await T.wrapAxios<StreamUrl>(axios.post(config.apiHost, data, options))
+    if (T.isAxiosError(streamUrl)) {
+      console.error('API host is not reachable ...', streamUrl)
+    }
+  }
+}
+
 export const waitAndNotify = async () => {
-  const streamInfo = await T.wrapPromise(getStreamInfo(config.cameraStream))
+  const streamInfo = await T.wrapPromise(getStreamInfo(config.camera.streamUrl))
 
   if (T.isError(streamInfo) && streamDetected) {
     streamDetected = false
     console.log('Camera stream is down ...')
+    await notifyApi(streamDetected)
   }
 
   if (!T.isError(streamInfo) && !streamDetected) {
     streamDetected = true
     console.log('Camera stream is up ...')
 
-    if (config.streamHost) {
-      console.log(`Pushing stream url: ${config.streamHost} ...`)
-
-      const data = { url: config.cameraStream }
-      const options = {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-
-      const streamUrl = await T.wrapAxios<StreamUrl>(axios.post(config.streamHost, data, options))
-      if (T.isAxiosError(streamUrl)) {
-        console.error('Stream host is not reachable ...', streamUrl)
-      }
-    }
+    await notifyApi(streamDetected)
+    await notifyStream()
   }
 
   setTimeout(async () => {
