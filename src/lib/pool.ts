@@ -46,9 +46,9 @@ const notifyApi = async (isStreamUp: boolean) => {
       }
     }
 
-    const streamUrl = await T.wrapAxios<StreamUrl>(axios.post(config.apiHost, data, options))
-    if (T.isAxiosError(streamUrl)) {
-      console.error('API host is not reachable ...', streamUrl)
+    const status = await T.wrapAxios(axios.post(config.apiHost, data, options))
+    if (T.isAxiosError(status)) {
+      console.error('API host is not reachable ...', status)
     }
   }
 }
