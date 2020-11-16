@@ -36,6 +36,7 @@ Before we run the project, create one `.env` file in the root of the project and
 CAMERA_ID=<camera serial no or id>
 CAMERA_STREAM=<camera rtsp stream>
 API_HOST=<callback url (optional)>
+API_SECRET=<api secret if applicable>
 STREAM_HOST=<callback url (optional)>
 FFPROBE_PATH=</usr/bin/ffprobe (optional)>
 ```
