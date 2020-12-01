@@ -1,6 +1,6 @@
 # Eufy Camera Pooling
 
-This service will do long pooling and check if the RTSP stream from Eufy Security camera is ready. The service accept `STREAM_HOST` environment variable and will push the payload `{ "url": "active-stream-url" }` to the endpoint sets on that variable. For example, if we want to notify [rtxp-to-hls](https://github.com/garasingulik/rtxp-to-hls) service, set the variable value to:
+This service will do long pooling and check if the RTSP stream from Eufy Security camera is ready. The service accept `STREAM_HOST` environment variable and will push the payload `{ "id": "camera-id", "url": "active-stream-url" }` to the endpoint sets on that variable. For example, if we want to notify [rtxp-to-hls](https://github.com/garasingulik/rtxp-to-hls) service, set the variable value to:
 
 ```
  STREAM_HOST=http(s)://rxtp-to-hls/stream/convert

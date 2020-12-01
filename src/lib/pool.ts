@@ -15,7 +15,11 @@ const notifyStream = async () => {
   if (config.streamHost && config.streamHost !== '') {
     console.log(`Pushing stream url: ${config.streamHost} ...`)
 
-    const data = { url: config.camera.streamUrl }
+    const data = {
+      id: config.camera.id,
+      url: config.camera.streamUrl
+    }
+
     const options = {
       headers: {
         'Content-Type': 'application/json'
